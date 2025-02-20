@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #d81b60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #b0003a;
+        }
+        .reset-btn {
+            background-color: #00897b;
+        }
+        .reset-btn:hover {
+            background-color: #00695c;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: #d81b60;">BMI Calculator</h2>
+        <p>Enter Weight in Kg & Height in Cm</p>
+        <input type="number" id="age" class="input-field" placeholder="Enter Age">
+        <select id="gender" class="input-field">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <input type="number" id="weight" class="input-field" placeholder="Enter Weight (Kg)">
+        <input type="number" id="height" class="input-field" placeholder="Enter Height (Cm)">
+        <button class="btn" onclick="calculateBMI()">Calculate BMI</button>
+        <button class="btn reset-btn" onclick="resetFields()">Reset</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            let weight = parseFloat(document.getElementById('weight').value);
+            let height = parseFloat(document.getElementById('height').value) / 100;
+            let result = document.getElementById('result');
+            
+            if (!weight || !height) {
+                result.innerHTML = "Please enter valid numbers!";
+                result.style.color = "red";
+                return;
+            }
+            
+            let bmi = weight / (height * height);
+            let category = "";
+            let color = "black";
+            
+            if (bmi < 18.5) {
+                category = "Underweight 😟<br>Eat a Nutritious Diet!";
+                color = "blue";
+            } else if (bmi < 24.9) {
+                category = "Normal 😊<br>Keep Up the Healthy Lifestyle!";
+                color = "green";
+            } else if (bmi < 29.9) {
+                category = "Overweight 😐<br>Time to Exercise!";
+                color = "orange";
+            } else if (bmi < 34.9) {
+                category = "Obese 😨<br>Consider a Healthier Diet!";
+                color = "darkorange";
+            } else {
+                category = "Extremely Obese 😱<br>Seek Medical Advice!";
+                color = "red";
+            }
+            
+            result.innerHTML = `Your BMI: ${bmi.toFixed(2)}<br>${category}`;
+            result.style.color = color;
+        }
+        
+        function resetFields() {
+            document.getElementById('age').value = "";
+            document.getElementById('gender').value = "";
+            document.getElementById('weight').value = "";
+            document.getElementById('height').value = "";
+            document.getElementById('result').innerHTML = "";
+        }
+    </script>
+</body>
+</html>
